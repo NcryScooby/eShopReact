@@ -1,0 +1,21 @@
+.container {
+  margin: 2rem auto;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.linksContainer {
+  display: flex;
+  gap: 2rem;
+}
+
+.linksContainer a {
+  text-decoration: none;
+  color: #565656;
+}
+
+.linksContainer a:first-child {
+  color: #000000;
+}

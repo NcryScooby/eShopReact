@@ -1,0 +1,44 @@
+.container {
+  margin: 5rem auto;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.img {
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+}
+
+.title {
+  font-size: 4rem;
+  line-height: 5rem;
+  font-weight: 400;
+  margin: 0.5rem 0;
+}
+
+.subdivision {
+  background-image: linear-gradient(#8424bd, #9944ca);
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer p {
+  font-size: 1.5rem;
+}
