@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className={styles.container}>
-      <Link to="/">
+      <Link to={"/"}>
         <img src={logo} alt="logo" className={styles.logo} />
       </Link>
       <div className={styles.linksContainer}>
@@ -16,6 +16,9 @@ const Navbar = () => {
         </Link>
         <Link to={"/products"} className={styles.link}>
           Products
+        </Link>
+        <Link to={"/manageProducts"} className={styles.link}>
+          Manage Products
         </Link>
         <Link to={"/cart"} className={styles.link}>
           <FiShoppingCart size={20} color={"#8424bd"} />

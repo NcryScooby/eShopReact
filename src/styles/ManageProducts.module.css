@@ -1,0 +1,13 @@
+.container {
+  height: 400px;
+  width: 100%;
+  margin: 5rem auto;
+  max-width: 1200px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}

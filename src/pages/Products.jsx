@@ -43,7 +43,12 @@ const Products = () => {
                 alt={product.name}
               />
               <CardContent>
-                <Typography gutterBottom variant="h4" component="div">
+                <Typography
+                  gutterBottom
+                  variant="h1"
+                  fontSize={32}
+                  component="div"
+                >
                   {product.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
