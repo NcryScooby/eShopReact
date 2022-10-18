@@ -1,10 +1,10 @@
 import { toast } from "react-toastify";
 
-const toastSuccess = (message) => {
-  toast.success(message, {
+const toastError = (message) => {
+  toast.error(message, {
     position: toast.POSITION.BOTTOM_RIGHT,
     autoClose: 5000,
   });
 };
 
-export default toastSuccess;
+export default toastError;
