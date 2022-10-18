@@ -143,6 +143,11 @@ const ManageProducts = () => {
   };
 
   const createProduct = async () => {
+    if (name === "") return toastError("Name is required");
+    if (description === "") return toastError("Description is required");
+    if (price === "") return toastError("Price is required");
+    if (image === "") return toastError("Image is required");
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("price", price);
@@ -329,7 +334,6 @@ const ManageProducts = () => {
           </Box>
         </Modal>
       }
-      {console.log(image)}
     </>
   );
 };
