@@ -22,18 +22,32 @@ const ManageProducts = () => {
   const [products, setProducts] = useState([]);
   const [productId, setProductId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [product, setProduct] = useState({
+    name: "",
+    price: "",
+    description: "",
+  });
 
-  const handleClickOpenModal = () => {
-    setOpenModal(true);
+  const handleClickOpenCreateModal = () => {
+    setOpenCreateModal(true);
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
+  const handleCloseCreateModal = () => {
+    setOpenCreateModal(false);
+  };
+
+  const handleClickOpenEditModal = () => {
+    setOpenEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setOpenEditModal(false);
   };
 
   const handleClickOpenDialog = () => {
@@ -58,6 +72,18 @@ const ManageProducts = () => {
 
   const handleChangeImage = (e) => {
     setImage(e.target.files[0]);
+  };
+
+  const handleEditProductName = (e) => {
+    setProduct({ ...product, name: e.target.value });
+  };
+
+  const handleEditProductPrice = (e) => {
+    setProduct({ ...product, price: e.target.value });
+  };
+
+  const handleEditProductDescription = (e) => {
+    setProduct({ ...product, description: e.target.value });
   };
 
   const getProducts = () => {
@@ -94,6 +120,36 @@ const ManageProducts = () => {
       });
   };
 
+  const getProductId = (id) => {
+    api
+      .get(`/getProduct/${id}`)
+      .then((response) => {
+        setProduct(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const updateProduct = (id) => {
+    api
+      .put(`/updateProduct/${id}`, product)
+      .then(() => {
+        toastSuccess("Product updated successfully");
+        getProducts();
+        setOpenEditModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    if (productId !== "") {
+      getProductId(productId);
+    }
+  }, [productId]);
+
   const columns = [
     { field: "name", headerName: "Name", flex: 1 },
     { field: "description", headerName: "Description", flex: 1 },
@@ -108,14 +164,20 @@ const ManageProducts = () => {
       renderCell: () => {
         return (
           <div className={styles.actions}>
-            <MdEdit size={20} color={"#8424bd"} cursor={"pointer"} />
+            <MdEdit
+              size={20}
+              color={"#8424bd"}
+              cursor={"pointer"}
+              onClick={() => {
+                handleClickOpenEditModal();
+              }}
+            />
             <MdDelete
               size={20}
               color={"#8424bd"}
               cursor={"pointer"}
               onClick={() => {
                 handleClickOpenDialog();
-                setProductId(productId);
               }}
             />
           </div>
@@ -124,7 +186,7 @@ const ManageProducts = () => {
     },
   ];
 
-  const modalStyle = {
+  const modalCreateStyle = {
     display: "flex",
     flexDirection: "column",
     gap: "0.5rem",
@@ -142,7 +204,25 @@ const ManageProducts = () => {
     borderRadius: "4px",
   };
 
-  const createProduct = async () => {
+  const modalEditStyle = {
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.5rem",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 300,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+    "&:focus": {
+      outline: "none",
+    },
+    borderRadius: "4px",
+  };
+
+  const createProduct = () => {
     if (name === "") return toastError("Name is required");
     if (description === "") return toastError("Description is required");
     if (price === "") return toastError("Price is required");
@@ -154,7 +234,7 @@ const ManageProducts = () => {
     formData.append("description", description);
     formData.append("image", image);
 
-    await api
+    api
       .post("/createProduct", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -162,7 +242,7 @@ const ManageProducts = () => {
       })
       .then(() => {
         toastSuccess("Product created successfully");
-        handleCloseModal();
+        handleCloseCreateModal();
         getProducts();
       })
       .catch((error) => {
@@ -218,7 +298,7 @@ const ManageProducts = () => {
               },
             }}
             variant="contained"
-            onClick={handleClickOpenModal}
+            onClick={handleClickOpenCreateModal}
           >
             Create Product
           </Button>
@@ -267,8 +347,8 @@ const ManageProducts = () => {
         </div>
       }
       {
-        <Modal open={openModal} onClose={handleCloseModal}>
-          <Box sx={modalStyle}>
+        <Modal open={openCreateModal} onClose={handleCloseCreateModal}>
+          <Box sx={modalCreateStyle}>
             <Typography
               sx={{
                 fontSize: "1.5rem",
@@ -298,7 +378,7 @@ const ManageProducts = () => {
               sx={{
                 "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
                   {
-                    "-webkit-appearance": "none",
+                    WebkitAppearance: "none",
                     margin: 0,
                   },
               }}
@@ -330,6 +410,66 @@ const ManageProducts = () => {
               }}
             >
               Create
+            </Button>
+          </Box>
+        </Modal>
+      }
+      {
+        <Modal open={openEditModal} onClose={handleCloseEditModal}>
+          <Box sx={modalEditStyle}>
+            <Typography
+              sx={{
+                fontSize: "1.5rem",
+                fontWeight: "bold",
+                marginBottom: "1rem",
+              }}
+              variant="h6"
+              component="h2"
+            >
+              Edit Product
+            </Typography>
+            <TextField
+              label="Name"
+              variant="outlined"
+              onChange={handleEditProductName}
+              value={product.name}
+            />
+            <TextField
+              label="Description"
+              variant="outlined"
+              onChange={handleEditProductDescription}
+              value={product.description}
+            />
+            <TextField
+              sx={{
+                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                  {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
+              }}
+              label="Price"
+              variant="outlined"
+              type={"number"}
+              onChange={handleEditProductPrice}
+              value={product.price}
+            />
+            <Button
+              sx={{
+                marginTop: "2rem",
+                height: "2.5rem",
+                backgroundColor: "#8424bd",
+                color: "#fff",
+                "&:hover": {
+                  backgroundColor: "#8524bdc4",
+                },
+              }}
+              variant="contained"
+              onClick={() => {
+                updateProduct(productId);
+              }}
+            >
+              Update
             </Button>
           </Box>
         </Modal>
