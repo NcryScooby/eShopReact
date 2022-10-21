@@ -26,35 +26,45 @@ const Products = () => {
   return (
     <>
       <Navbar />
-      <div className={styles.container}>
-        <div className={styles.cards}>
-          {products.map((product) => (
-            <Card sx={{ width: 250 }} key={product._id}>
-              <CardMedia
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 400,
-                }}
-                component="img"
-                height="140"
-                image={`http://localhost:3001/getImageId/${product._id}`}
-                alt={product.name}
-              />
-              <CardContent>
-                <Typography variant="h6" fontSize={18} component="div">
-                  {product.name}
-                </Typography>
-                <Typography gutterBottom variant="body2" color="text.secondary">
-                  {product.description}
-                </Typography>
-                <Typography variant="p" component="div">
-                  U$ {product.price}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
+      <div
+        style={{
+          animation: "fadeIn 1s",
+        }}
+      >
+        <div className={styles.container}>
+          <div className={styles.cards}>
+            {products.map((product) => (
+              <Card sx={{ width: 250 }} key={product._id}>
+                <CardMedia
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: 400,
+                  }}
+                  component="img"
+                  height="140"
+                  image={`http://localhost:3001/getImageId/${product._id}`}
+                  alt={product.name}
+                />
+                <CardContent>
+                  <Typography variant="h6" fontSize={18} component="div">
+                    {product.name}
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    {product.description}
+                  </Typography>
+                  <Typography variant="p" component="div">
+                    U$ {product.price}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </>

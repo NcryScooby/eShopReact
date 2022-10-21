@@ -253,55 +253,61 @@ const ManageProducts = () => {
   return (
     <>
       <Navbar />
-      <div className={styles.container}>
-        <DataGrid
-          sx={{
-            "& .MuiDataGrid-columnHeaderTitle": {
-              color: "#8424bd",
-              fontWeight: "bold",
-            },
-            "& .MuiDataGrid-cell:focus": {
-              outline: "none",
-            },
-            "& .MuiDataGrid-columnHeader:focus": {
-              outline: "none",
-            },
-            "& .MuiDataGrid-columnHeader:focus-within": {
-              outline: "none",
-            },
-            "& .MuiDataGrid-columnSeparator": {
-              display: "none",
-            },
-          }}
-          rows={products.map((product) => ({
-            id: product._id,
-            name: product.name,
-            description: product.description,
-            price: `U$ ${product.price}`,
-          }))}
-          onCellClick={(cell) => {
-            setProductId(cell.row.id);
-          }}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          disableColumnMenu={true}
-          disableSelectionOnClick={true}
-        />
-        <div className={styles.buttonContainer}>
-          <Button
+      <div
+        style={{
+          animation: "fadeIn 1s",
+        }}
+      >
+        <div className={styles.container}>
+          <DataGrid
             sx={{
-              backgroundColor: "#8424bd",
-              color: "#fff",
-              "&:hover": {
-                backgroundColor: "#8524bdc4",
+              "& .MuiDataGrid-columnHeaderTitle": {
+                color: "#8424bd",
+                fontWeight: "bold",
+              },
+              "& .MuiDataGrid-cell:focus": {
+                outline: "none",
+              },
+              "& .MuiDataGrid-columnHeader:focus": {
+                outline: "none",
+              },
+              "& .MuiDataGrid-columnHeader:focus-within": {
+                outline: "none",
+              },
+              "& .MuiDataGrid-columnSeparator": {
+                display: "none",
               },
             }}
-            variant="contained"
-            onClick={handleClickOpenCreateModal}
-          >
-            Create Product
-          </Button>
+            rows={products.map((product) => ({
+              id: product._id,
+              name: product.name,
+              description: product.description,
+              price: `U$ ${product.price}`,
+            }))}
+            onCellClick={(cell) => {
+              setProductId(cell.row.id);
+            }}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
+            disableColumnMenu={true}
+            disableSelectionOnClick={true}
+          />
+          <div className={styles.buttonContainer}>
+            <Button
+              sx={{
+                backgroundColor: "#8424bd",
+                color: "#fff",
+                "&:hover": {
+                  backgroundColor: "#8524bdc4",
+                },
+              }}
+              variant="contained"
+              onClick={handleClickOpenCreateModal}
+            >
+              Create Product
+            </Button>
+          </div>
         </div>
       </div>
       {
