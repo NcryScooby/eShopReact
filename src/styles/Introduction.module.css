@@ -33,12 +33,39 @@
 }
 
 .footer {
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 400px;
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: #222222;
+  color: #ffffff;
+}
+
+.footer h5 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 .footer p {
-  font-size: 1.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  max-width: 30ch;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.owner {
+  display: flex;
+  place-items: center;
+  gap: 1rem;
+}
+.icons {
+  display: flex;
+  gap: 0.5rem;
 }
