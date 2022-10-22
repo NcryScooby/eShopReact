@@ -63,9 +63,23 @@
 .owner {
   display: flex;
   place-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
+
+.owner p {
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
 .icons {
   display: flex;
   gap: 0.5rem;
+}
+
+.purpose p {
+  font-size: 1rem;
+  font-weight: 400;
+  max-width: 30ch;
+  text-transform: capitalize;
 }

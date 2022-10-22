@@ -93,7 +93,7 @@ const Introduction = () => {
             </div>
           </div>
           <div className={styles.footerContent}>
-            <div>
+            <div className={styles.purpose}>
               <h5>Purpose</h5>
               <p>
                 This project was made to put into practice everything I learned
